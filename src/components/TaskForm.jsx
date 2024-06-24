@@ -13,6 +13,7 @@ function TaskForm({ addTask }) {
       const newTask = {
         title,
         description,
+        completed: false,
       };
 
       addTask(newTask);
@@ -27,7 +28,7 @@ function TaskForm({ addTask }) {
         Want to add your tasks? lets go..
       </h3>
       <form
-        className="flex flex-col gap-3 w-full"
+        className="flex flex-col gap-3 w-full mb-8"
         action=""
         onSubmit={handleSubmit}
       >

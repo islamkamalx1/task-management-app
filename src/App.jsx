@@ -1,4 +1,6 @@
 import TaskCards from "./components/TaskCards.jsx";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   return (
@@ -10,7 +12,9 @@ function App() {
         Arrange your tasks and be more productive today🎯
       </p>
 
-      <TaskCards />
+      <DndProvider backend={HTML5Backend}>
+        <TaskCards />
+      </DndProvider>
     </div>
   );
 }

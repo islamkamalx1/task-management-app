@@ -7,7 +7,11 @@ import { tasksData } from "../constants";
 import Search from "./Search";
 
 function TaskCards() {
-  const [tasks, setTasks] = useState(tasksData);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : tasksData;
+  });
+
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -17,7 +21,7 @@ function TaskCards() {
         setTasks(JSON.parse(storedTasks));
       } catch (error) {
         console.error("Error parsing stored tasks", error);
-        setTasks(tasksData); // Fallback to default tasks data
+        setTasks(tasksData);
       }
     }
   }, []);
@@ -30,9 +34,23 @@ function TaskCards() {
     setTasks([...tasks, task]);
   };
 
-  const removeTask = (id) => {
-    const newTasks = tasks.filter((task) => task.id !== id);
+  const removeTask = (title) => {
+    const newTasks = tasks.filter((task) => task.title !== title);
     setTasks(newTasks);
+  };
+
+  const moveTask = (fromIndex, toIndex) => {
+    const updatedTasks = [...tasks];
+    const [movedTask] = updatedTasks.splice(fromIndex, 1);
+    updatedTasks.splice(toIndex, 0, movedTask);
+    setTasks(updatedTasks);
+  };
+
+  const toggleTaskCompletion = (title) => {
+    const updatedTasks = tasks.map((task) =>
+      task.title === title ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks);
   };
 
   const handleSearchChange = (e) => {
@@ -50,8 +68,15 @@ function TaskCards() {
       <Search searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
 
       <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {filteredTasks.map((task) => (
-          <TaskCard key={task.id} task={task} removeTask={removeTask} />
+        {filteredTasks.map((task, index) => (
+          <TaskCard
+            key={task.title}
+            task={task}
+            index={index}
+            moveTask={moveTask}
+            removeTask={removeTask}
+            toggleTaskCompletion={toggleTaskCompletion}
+          />
         ))}
 
         {filteredTasks.length === 0 && (
