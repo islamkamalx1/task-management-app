@@ -33,7 +33,7 @@ function TaskCard({
   return (
     <div
       ref={(node) => ref(drop(node))}
-      className={`rounded border h-50 border-yellow p-3 m-2 cursor-move ${
+      className={`rounded border h-50 border-yellow p-3  cursor-move ${
         completed ? "bg-green-200" : "bg-secondary"
       }`}
     >

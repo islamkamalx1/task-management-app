@@ -24,11 +24,11 @@ function TaskForm({ addTask }) {
 
   return (
     <>
-      <h3 className="text-orange text-xl my-5">
+      <h3 className="text-orange px-3 text-xl my-5">
         Want to add your tasks? lets go..
       </h3>
       <form
-        className="flex flex-col gap-3 w-full mb-8"
+        className="flex flex-col gap-3 w-full px-3 mb-8"
         action=""
         onSubmit={handleSubmit}
       >

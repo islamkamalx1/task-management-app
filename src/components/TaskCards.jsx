@@ -67,7 +67,7 @@ function TaskCards() {
     <>
       <Search searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
 
-      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-5 px-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {filteredTasks.map((task, index) => (
           <TaskCard
             key={task.title}
